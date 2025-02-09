@@ -2,7 +2,9 @@
 
 [![HitCount](http://hits.dwyl.io/blinkfox/hexo-theme-matery.svg)](http://hits.dwyl.io/blinkfox/hexo-theme-matery) [![Gitter](https://img.shields.io/gitter/room/blinkfox/hexo-theme-matery.svg)](https://gitter.im/hexo-theme-matery/Lobby?utm_source=badge) [![GitHub issues](https://img.shields.io/github/issues/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/issues) [![GitHub license](https://img.shields.io/github/license/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/blob/master/LICENSE) [![Download](https://img.shields.io/badge/downloads-master-green.svg)](https://codeload.github.com/blinkfox/hexo-theme-matery/zip/master) [![Hexo Version](https://img.shields.io/badge/hexo-%3E%3D%205.0.0-blue.svg)](http://hexo.io) [![GitHub forks](https://img.shields.io/github/forks/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/network) [![GitHub stars](https://img.shields.io/github/stars/blinkfox/hexo-theme-matery.svg)](https://github.com/blinkfox/hexo-theme-matery/stargazers)
 
-[🇺🇸English Document](README.md) | [国内访问示例 (http://blinkfox.com)](http://blinkfox.com) | [Github 部署演示示例 (https://blinkfox.github.io)](https://blinkfox.github.io) | QQ 交流群1（已满）: [`926552981`](https://jq.qq.com/?_wv=1027&k=5zMDYHT) | QQ 交流群2（推荐）: [`971887688`](https://jq.qq.com/?_wv=1027&k=53q2Ayp)
+[🇺🇸English Document](README.md) | [国内访问示例 (http://blinkfox.com)](http://blinkfox.com) | [Github 部署演示示例 (https://blinkfox.github.io)](https://blinkfox.github.io) 
+
+QQ 交流群1（已满）: [`926552981`](https://jq.qq.com/?_wv=1027&k=5zMDYHT) | QQ 交流群2（已满）: [`971887688`](https://jq.qq.com/?_wv=1027&k=53q2Ayp) | QQ 交流群3（推荐）: [`670694035`](https://qm.qq.com/cgi-bin/qm/qr?k=fC1-kU-_aTn4q-JQq4GsYKr4WcKdgfGa&jump_from=webapi)
 
 > 这是一个采用 `Material Design` 和响应式设计的 Hexo 博客主题。
 
@@ -19,6 +21,7 @@
 - 可自定义的数据的友情链接页面
 - 支持文章置顶和文章打赏
 - 支持 `MathJax`
+- 支持中文繁简转换
 - `TOC` 目录
 - 可设置复制文章内容时追加版权信息
 - 可设置阅读文章时做密码验证
@@ -183,13 +186,7 @@ layout: "friends"
 ```
 ### 新建 404 页
 
-如果在你的博客 `source` 目录下还没有 `404.md` 文件，那么你就需要新建一个
-
-```bash
-hexo new page 404
-```
-
-编辑你刚刚新建的页面文件 `/source/404/index.md`，至少需要以下内容：
+如果在你的博客 `source` 目录下还没有 `404.md` 文件，那么你就需要新建一个。编辑你刚刚新建的页面文件 `/source/404.md`，至少需要以下内容：
 
 ```yaml
 ---
@@ -276,7 +273,6 @@ menu:
         icon: fas fa-image
 ```
 
-执行 `hexo clean && hexo g` 重新生成博客文件，然后就可以在文章中对应位置看到你用`emoji`语法写的表情了。
 
 ### 代码高亮
 
@@ -379,6 +375,7 @@ githubEmojis:
   styles:
   customEmojis:
 ```
+执行 `hexo clean && hexo g` 重新生成博客文件，然后就可以在文章中对应位置看到你用`emoji`语法写的表情了。
 
 ### 添加 RSS 订阅支持（可选的）
 
@@ -415,6 +412,18 @@ feed:
 ### 修改页脚
 
 页脚信息可能需要做定制化修改，而且它不便于做成配置信息，所以可能需要你自己去再修改和加工。修改的地方在主题文件的 `/layout/_partial/footer.ejs` 文件中，包括站点、使用的主题、访问量等。
+
+### 添加中文繁简转换
+
+在主题的 `_config.yml` 文件中，开启 translate 为 enable。
+
+> 开启中文繁简转换如下修改。默认不开启。 
+> 实例演示： [繁简转换](https://blog.17lai.site) 底下 footer 栏
+
+```yaml
+translate:
+  enable: true
+```
 
 ### 修改社交链接
 
@@ -482,6 +491,60 @@ music:
 >
 > 即为这串数字。
 
+### 添加note
+
+> [演示](https://blog.17lai.site/posts/cf0f47fd/#tag-note)
+
+#### Usage
+
+```
+{% note [class] [no-icon] [summary] %}
+Any content (support inline tags too).
+{% endnote %}
+```
+
+- `[class]` : *Optional parameter.* Supported values: default | primary | success | info | warning | danger.
+- `[no-icon]` : *Optional parameter.* Disable icon in note.
+- `[summary]` : *Optional parameter.* Optional summary of the note.
+
+All parameters are optional.
+
+#### example
+
+```
+{% note %}
+#### Header
+(without define class style)
+{% endnote %}
+```
+
+### 添加button
+
+> [演示](https://blog.17lai.site/posts/cf0f47fd/#tag-button)
+
+#### Usage
+
+```
+{% button url, text, icon [class], [title] %}
+```
+
+or
+
+```
+{% btn url, text, icon [class], [title] %}
+```
+
+- `url` : Absolute or relative path to URL.
+- `text` : Button text. Required if no icon specified.
+- `icon` : Font Awesome icon name. Required if no text specified.
+- `[class]` : *Optional parameter.* Font Awesome class(es): `fa-fw` | `fa-lg` | `fa-2x` | `fa-3x` | `fa-4x` | `fa-5x`
+- `[title]` : *Optional parameter.* Tooltip at mouseover.
+
+#### Examples
+
+```
+{% button #, Text %}
+```
 
 
 ## 文章 Front-matter 介绍
@@ -497,6 +560,7 @@ music:
 | author     | 根 `_config.yml` 中的 `author` | 文章作者                                                     |
 | img        | `featureImages` 中的某个值   | 文章特征图，推荐使用图床(腾讯云、七牛云、又拍云等)来做图片的路径.如: `http://xxx.com/xxx.jpg` |
 | top        | `true`                      | 推荐文章（文章是否置顶），如果 `top` 值为 `true`，则会作为首页推荐文章 |
+| hide        | `false`                    | 隐藏文章，如果`hide`值为`true`，则文章不会在首页显示 |
 | cover      | `false`                     | `v1.0.2`版本新增，表示该文章是否需要加入到首页轮播封面中 |
 | coverImg   | 无                          | `v1.0.2`版本新增，表示该文章在首页轮播封面需要显示的图片路径，如果没有，则默认使用文章的特色图片 |
 | password   | 无                          | 文章阅读密码，如果要对文章设置阅读验证密码的话，就可以设置 `password` 的值，该值必须是用 `SHA256` 加密后的密码，防止被他人识破。前提是在主题的 `config.yml` 中激活了 `verifyPassword` 选项 |
@@ -534,6 +598,7 @@ date: 2018-09-07 09:25:00
 author: 赵奇
 img: /source/images/xxx.jpg
 top: true
+hide: false
 cover: true
 coverImg: /images/1.jpg
 password: 8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92
@@ -615,4 +680,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
 ## 版本变更记录
 
-参见 [CHANGELOG.md](https://github.com/blinkfox/hexo-theme-matery/blob/master/README.md)
+参见 [CHANGELOG.md](https://github.com/blinkfox/hexo-theme-matery/blob/master/CHANGELOG.md)
+
+## 更多部署方式
+
+> Jsdelivr 已经被封了，这两个可以加速访问快一点
+
+### [vercel 部署](https://blog.17lai.site/posts/5311b619/#vercel-%E9%83%A8%E7%BD%B2)
+
+### [cloudflare Pages 部署](https://blog.17lai.site/posts/5311b619/#cloudflare-Pages-%E9%83%A8%E7%BD%B2)
+
